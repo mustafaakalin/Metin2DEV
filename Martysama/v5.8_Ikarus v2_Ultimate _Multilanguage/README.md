@@ -1,6 +1,3 @@
-İşte bol bol emojiyle zenginleştirilmiş ve Markdown formatına çevrilmiş versiyon:  
-
-```markdown
 # 🌟 SOURCE FİLES VE SİSTEM BİLGİLERİ 🌟  
 
 ### 🎉 **Server Bilgileri**  
@@ -157,7 +154,7 @@
 
 💡 *Bir arkadaşımız kurulum videosu çekmiş, teşekkür ederiz!*  
 **[Video Linki](#)**  
-```
+
 
 
 
