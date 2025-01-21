@@ -1,6 +1,30 @@
 #!/usr/local/bin/python3
 #### @martysama0134 start scripts ####
 ### TODO fix -s -w for srvr and not only channels
+
+# Bu kod bir sunucu yönetim betiğidir. Farklı sunucular veya süreçler için başlangıç ve yönetim işlevlerini gerçekleştirir. Özellikle belirli sunucuları ve kanalları başlatmayı destekleyen, sistem üzerinde çalışan süreçleri kontrol eden, konfigürasyon dosyalarından veri okuyan ve kullanıcı girdisine göre hareket eden bir yapı içerir.
+# Kodun Yaptıkları
+
+#     JSON Dosyasından Konfigürasyon Yükleme (staInit):
+#         .start.json dosyasını okuyarak her bir sunucu ve ilgili süreçlerin yapılandırmasını yükler.
+
+#     Süreç Başlatma (staStart):
+#         Belirli sunucu ve süreç türlerini seçerek çalıştırır.
+#         Linux ve FreeBSD için süreçlerin çalışıp çalışmadığını kontrol eder, gerekirse çalıştırır.
+#         Windows için temel bir süreç başlatma yöntemi uygular.
+
+#     Komut Satırı Parametreleri:
+#         Çeşitli bayraklar ve argümanlarla belirli sunucuları veya kanalları seçme olanağı sağlar:
+#             -s, --selective: Belirli sunucuları çalıştırır.
+#             -l, --level: Log seviyesi ayarlanır.
+#             -I, --IP: IP adresi atanır.
+
+#     Dinamik Kullanıcı Girdisi:
+#         Kullanıcıdan sunucu ve kanal seçimi alabilir, ardından bu seçimlere göre işlem yapar.
+
+#     Süreç Yönetimi:
+#         Sistem üzerinde çalışan süreçleri bulur ve gerekirse çalıştırır.
+#         Süreçlerin çalışmasını kontrol eder, eksik olanları başlatır.
 from subprocess import check_output as sp_co, call as sp_call, CalledProcessError as sp_CalledProcessError
 from os import getcwd as os_getcwd, chdir as os_chdir
 
@@ -169,3 +193,42 @@ if __name__ == "__main__":
 #
 
 
+# .start.json:
+
+# [
+#     {
+#         "path": "srv1/db",
+#         "name": "srv1-db",
+#         "type": 1,
+#         "chan": 0,
+#         "serv": "srv1"
+#     },
+#     {
+#         "path": "srv1/auth1",
+#         "name": "srv1-auth1",
+#         "type": 2,
+#         "chan": 0,
+#         "serv": "srv1"
+#     },
+#     {
+#         "path": "srv1/chan/ch1/core1",
+#         "name": "srv1-ch1-core1",
+#         "type": 5,
+#         "chan": 1,
+#         "serv": "srv1"
+#     },
+#     {
+#         "path": "srv1/chan/ch1/core2",
+#         "name": "srv1-ch1-core2",
+#         "type": 5,
+#         "chan": 1,
+#         "serv": "srv1"
+#     },
+#     {
+#         "path": "srv1/chan/ch99/core99",
+#         "name": "srv1-ch99-core99",
+#         "type": 5,
+#         "chan": 99,
+#         "serv": "srv1"
+#     }
+# ]

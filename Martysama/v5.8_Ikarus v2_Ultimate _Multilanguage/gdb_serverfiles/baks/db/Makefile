@@ -53,3 +53,66 @@ cleanall: clean lclean
 
 
 
+
+
+
+
+
+
+
+
+
+# # Temel değişkenler
+# DATE != date +%Y%m%d-%H%M%S
+# MYSQL_CMD = /usr/local/bin/mysqldump
+# MYSQL = mysql
+# GZIP = pigz -9  # Çok çekirdekli sıkıştırma
+# BACKUP_DIR = $(OUTPATH)/$(DATE)
+# MYSQL_PARAMS = -u $(MY_USER) -p$(MY_PASS) -h $(MY_HOST)
+
+# # Veritabanı listesi
+# DBS = account common player log mysql
+
+# # Paralel yedekleme için
+# .PARALLEL: $(DBS)
+
+# dump: create_backup_dir $(DBS)
+#     @echo "### Yedekleme başladı: $(DATE)" >> $(MY_LOGF)
+
+# create_backup_dir:
+#     @mkdir -p $(BACKUP_DIR)
+
+# # Her veritabanı için paralel yedekleme
+# $(DBS):
+#     @if [ "$@" = "log" ]; then \
+#         $(MYSQL_CMD) --no-data $(MYSQL_PARAMS) $(PREFIX)$@ | $(GZIP) > $(BACKUP_DIR)/$(PREFIX)$@.sql.gz 2>> $(MY_LOGF) & \
+#     elif [ "$@" = "mysql" ]; then \
+#         $(MYSQL_CMD) $(MYSQL_PARAMS) $@ | $(GZIP) > $(BACKUP_DIR)/$@.sql.gz 2>> $(MY_LOGF) & \
+#     else \
+#         $(MYSQL_CMD) $(MYSQL_PARAMS) $(PREFIX)$@ | $(GZIP) > $(BACKUP_DIR)/$(PREFIX)$@.sql.gz 2>> $(MY_LOGF) & \
+#     fi
+#     @wait
+
+# # Optimize edilmiş geri yükleme
+# recovery:
+#     @echo "### Geri yükleme başladı: $(DATE)" >> $(MY_LOGF)
+#     @for db in $(DBS); do \
+#         if [ "$$db" = "mysql" ]; then \
+#             pigz -dc $$db.sql.gz | $(MYSQL) $(MYSQL_PARAMS) $$db 2>> $(MY_LOGF) & \
+#         else \
+#             pigz -dc $(PREFIX)$$db.sql.gz | $(MYSQL) $(MYSQL_PARAMS) $(PREFIX)$$db 2>> $(MY_LOGF) & \
+#         fi \
+#     done
+#     @wait
+#     @echo "### Geri yükleme tamamlandı: $(DATE)" >> $(MY_LOGF)
+
+# # Optimize edilmiş temizlik
+# clean:
+#     @find $(OUTPATH) -mindepth 1 -maxdepth 1 ! -name "Makefile" -exec rm -rf {} +
+
+# wclean:
+#     @echo "### Haftalık temizlik başladı: $(DATE)" >> $(MY_LOGF)
+#     @find $(OUTPATH) -mindepth 1 -maxdepth 1 -type d -mtime +7 -exec rm -rf {} +
+#     @echo "### Haftalık temizlik tamamlandı: $(DATE)" >> $(MY_LOGF)
+
+# .PHONY: dump recovery clean wclean cleanall create_backup_dir $(DBS)

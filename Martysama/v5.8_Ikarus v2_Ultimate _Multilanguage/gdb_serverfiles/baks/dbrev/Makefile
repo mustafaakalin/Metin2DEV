@@ -53,3 +53,77 @@ lclean:
 
 cleanall: clean lclean
 	@echo "### clean all done $(DATE)" >> $(MY_LOGF)
+
+
+
+
+
+
+
+
+# # Değişkenler
+# DATE != date +%Y%m%d-%H%M%S
+# MYSQL_CMD = /usr/local/bin/mysqldump
+# MYSQL = mysql
+# MY_HOST ?= localhost
+# MY_USER ?= root
+# MY_PASS ?= password
+# MY_LOGF ?= backup.log
+# PREFIX ?= srv1_
+# OUTPATH ?= backups
+
+# # Ortak MySQL parametreleri
+# MYSQL_PARAMS = -u $(MY_USER) -p$(MY_PASS) -h $(MY_HOST)
+# DUMP_PARAMS = --skip-extended-insert --skip-dump-date $(MYSQL_PARAMS)
+
+# # Veritabanları
+# DBS = account common player log
+
+# # Paralel işlem için
+# .PARALLEL: dump-schema dump-data
+
+# all: help
+
+# help:
+#     @echo "Kullanılabilir komutlar:"
+#     @echo "  make dump      - Tüm veritabanlarını yedekle"
+#     @echo "  make recovery  - Yedekleri geri yükle"
+#     @echo "  make clean     - Yedek dosyalarını temizle"
+
+# # Dizin oluşturma
+# $(OUTPATH):
+#     @mkdir -p $(OUTPATH)
+
+# # Schema yedekleme
+# dump-schema: $(OUTPATH)
+#     @echo "Schema yedekleme başladı: $(DATE)" | tee -a $(MY_LOGF)
+#     @for db in $(DBS); do \
+#         $(MYSQL_CMD) --no-data $(DUMP_PARAMS) $(PREFIX)$$db > $(OUTPATH)/$(PREFIX)$$db-schema.sql 2>> $(MY_LOGF) & \
+#     done
+#     @wait
+
+# # Data yedekleme
+# dump-data: $(OUTPATH)
+#     @echo "Data yedekleme başladı: $(DATE)" | tee -a $(MY_LOGF)
+#     @$(MYSQL_CMD) --no-create-info $(DUMP_PARAMS) $(PREFIX)account $(ACCOUNT_TABLES) > $(OUTPATH)/$(PREFIX)account-data.sql 2>> $(MY_LOGF) &
+#     @$(MYSQL_CMD) --no-create-info $(DUMP_PARAMS) $(PREFIX)common > $(OUTPATH)/$(PREFIX)common-data.sql 2>> $(MY_LOGF) &
+#     @$(MYSQL_CMD) --no-create-info $(DUMP_PARAMS) $(PREFIX)player $(PLAYER_TABLES) > $(OUTPATH)/$(PREFIX)player-data.sql 2>> $(MY_LOGF) &
+#     @wait
+
+# dump: dump-schema dump-data
+#     @echo "Yedekleme tamamlandı: $(DATE)" | tee -a $(MY_LOGF)
+
+# # Geri yükleme işlemleri
+# recovery: $(OUTPATH)
+#     @echo "Geri yükleme başladı: $(DATE)" | tee -a $(MY_LOGF)
+#     @for db in $(DBS); do \
+#         $(MYSQL) $(MYSQL_PARAMS) $(PREFIX)$$db < $(OUTPATH)/$(PREFIX)$$db-schema.sql 2>> $(MY_LOGF); \
+#         [ -f $(OUTPATH)/$(PREFIX)$$db-data.sql ] && $(MYSQL) $(MYSQL_PARAMS) $(PREFIX)$$db < $(OUTPATH)/$(PREFIX)$$db-data.sql 2>> $(MY_LOGF); \
+#     done
+#     @echo "Geri yükleme tamamlandı: $(DATE)" | tee -a $(MY_LOGF)
+
+# clean:
+#     @rm -rf $(OUTPATH)/*.sql
+#     @echo "Temizlik tamamlandı: $(DATE)" | tee -a $(MY_LOGF)
+
+# .PHONY: all help dump dump-schema dump-data recovery clean
