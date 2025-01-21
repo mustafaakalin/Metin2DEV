@@ -1,3 +1,169 @@
+İşte bol bol emojiyle zenginleştirilmiş ve Markdown formatına çevrilmiş versiyon:  
+
+```markdown
+# 🌟 SOURCE FİLES VE SİSTEM BİLGİLERİ 🌟  
+
+### 🎉 **Server Bilgileri**  
+- **Martysama Server Files:** v5.8 + Source (Sonraki sürümler: v5.9 - v6.0)  
+- **İkarus Offline Shop:** v2 ULTIMATE Sürüm! *(Basic - Pro - Ultimate)*  
+- **Mali Multi Language:** ULTIMATE Sürüm! *(Lite - Premium - Ultimate)*  
+
+---
+
+### 💻 **Sürüm Bilgileri**  
+- **FreeBSD:** 14.0  
+- **MariaDB:** 10.11  
+- **Visual Studio:** 2022 v14.x  
+
+---
+
+### 🔐 **Şifreler**  
+- **Filezilla/Putty/VirtualBox/Navicat:**  
+  - **Kullanıcı adı:** root  
+  - **Şifre:** password  
+
+- **GM Hesap:**  
+  - **ID:** root  
+  - **Şifre:** 12345  
+
+💡 *Y ve F8 tuşu ile offline shop ve search açabilirsiniz.*  
+
+---
+
+## ⚙️ **SERVER FİLES AYARLARI**  
+
+1. **FileZilla:**  
+   - `/home/gdb_serverfiles/main` klasörünü açın.  
+   - `gen_settings.py` adlı dosyayı Notepad ile açın.  
+   - Şu ayarları düzenleyin:  
+     ```python
+     v_bindHostname = '192.168.1.60'
+     v_proxyHostname = '192.168.1.60'
+     ```  
+   - **IP adresinizi yazın ve kaydedin. 💾**  
+
+2. **Putty:**  
+   ```bash
+   cd /home/gdb_serverfiles/main
+   python admin_panel.py
+   666 seç.
+   ```  
+   🔧 *IP adresine göre config düzenlemeleri yapıldı ve kanallar kuruldu!*  
+
+---
+
+## 🔨 **SERVER SOURCE DERLEME ve OYUNU AÇMA**  
+
+1. **Putty ile login olduktan sonra:**  
+   ```bash
+   cd /home/gdb-source-server/Srcs/Server
+   gmake clean
+   gmake all -j4
+   ```  
+
+2. **Quest derlemesi için:**  
+   ```bash
+   cd /home/gdb-source-server/Srcs/Server/game/src/quest
+   gmake clean
+   gmake
+   ```  
+
+3. **Admin panel işlemleri:**  
+   ```bash
+   cd /home/gdb_serverfiles/main
+   python admin_panel.py
+   888 seç.
+   python admin_panel.py
+   666 seç.
+   ```  
+
+4. **Oyunu açmak için:**  
+   ```bash
+   cd /home/gdb_serverfiles/main
+   python admin_panel.py
+   1 seç.
+   ```  
+
+❗ *NOT: Server source derlemesi yapmadan oyunu açmaya çalışmayın!*  
+
+---
+
+## 🛠️ **CLIENT SOURCE DERLEME**  
+
+1. **Client klasörüne gidin:**  
+   - `source-client/Srcs/Client`  
+   - `Metin2Client.sln` dosyasına sağ tıklayın ve **Visual Studio Version Selector** ile açın.  
+   - Gelen uyarılara **Evet / Tamam** diyerek onay verin.  
+
+2. **Proje temizliği ve derleme:**  
+   - **Çözümü temizle**  
+   - **Toplu Derle > Tümünü Seç > Yeniden Derle** *(Sadece release olanları seçebilirsiniz)*  
+
+---
+
+## 📥 **İndirme Linkleri**  
+- **İNDİR:** [Tıkla İndir](#)  
+- **FreeBSD:** [Tıkla İndir](#)  
+
+---
+
+## 🛡️ **Virüs Total Sonuçları**  
+- [Sonuçları Görüntüle](https://www.virustotal.com/gui/url/...fc580b27b84b33aba7781369c73d62909cb?nocache=1)  
+
+---
+
+## 📝 **Yapılan Değişiklikler**  
+
+### 🆕 **UPDATE-2.1: 02.11.2024**  
+- Mini map üzerinde GM'lerin ışınlanması sağlandı. *(M tuşu)*  
+
+### 🆕 **UPDATE-2.2: 03.11.2024**  
+- Official karakter bilgi penceresi eklendi *(C tuşu)*  
+- Bonus penceresi eklendi.  
+
+### 🆕 **UPDATE-2.3: 03.11.2024**  
+- Simya sistemindeki sorunlar fixlendi.  
+  - **Efsunlar görünmüyordu:** Fix.  
+  - **Tak/çıkar işlemi core veriyordu:** Fix.  
+  - **Mitsi Simya eklendi!**  
+
+### 🆕 **UPDATE-2.4: 08.11.2024**  
+- Multi Language sistemi **ULTIMATE** sürümüne yükseltildi!  
+- 16 dil desteği sağlandı!  
+- Shop Search’a Mitsi Simya eklendi.  
+
+### 🆕 **UPDATE-2.5: 13.11.2024**  
+- Görüş mesafesi artırıldı.  
+- Bazı binek kullanım sorunları fixlendi.  
+- **Lycan kapatıldı.**  
+
+### 🆕 **UPDATE-2.5.1: 06.12.2024**  
+- + basarken oluşan görüntü hatası fixlendi.  
+
+### 🆕 **UPDATE-2.5.2: 06.12.2024**  
+- **CPythonSkill::RegisterSkillDesc Wolfman Fix**  
+
+---
+
+## 🐞 **Hata ve Bug Bildirimleri**  
+
+### 📌 **Düzeltilecek Hatalar:**  
+- Max yang uyarlamaları  
+- Işınlanınca CPU değerleri  
+- Core verme sorunları  
+- Simya sisteminde bölme sorunları  
+
+---
+
+💡 *Bir arkadaşımız kurulum videosu çekmiş, teşekkür ederiz!*  
+**[Video Linki](#)**  
+```
+
+
+
+
+
+
 # 🚀 NAVICAT BAĞLANMAZSA YAPILACAK İŞLEMLER! 🌟  
 
 Eğer NAVICAT'a bağlanabiliyorsanız bu işlemleri yapmanıza gerek yok! 💻  
